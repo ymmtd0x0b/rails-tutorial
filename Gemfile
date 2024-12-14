@@ -13,6 +13,8 @@ gem 'bootsnap',   '1.10.3', require: false
 
 # not default
 gem 'net-http'
+gem 'html2slim'
+gem 'slim-rails'
 
 group :development, :test do
   gem 'sqlite3', '1.4.2'
