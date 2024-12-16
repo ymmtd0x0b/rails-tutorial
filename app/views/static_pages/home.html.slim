@@ -1,5 +1,13 @@
-h1 Sample App
-p
-  |> This is the home page for the
-  a>[href="https://railstutorial.jp/"] Ruby on Rails Tutorial
-  | sample application.
+.center.jumbotron
+  h1 Welcome to the Sample App
+
+  h2
+    |> This is the home page for the
+    a>[href="https://railstutorial.jp/"] Ruby on Rails Tutorial
+    | sample application.
+
+  .btn.btn-lg.btn-primary
+    = link_to 'Sign up now!', '#'
+
+= link_to 'https://rubyonrails.org/' do
+  = image_tag('rails.svg', alt: 'Rails logo', width: "200px")
