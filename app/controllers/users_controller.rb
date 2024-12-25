@@ -50,7 +50,7 @@ class UsersController < ApplicationController
 
   def correct_user
     user = User.find(params[:id])
-    if user != current_user
+    unless current_user?(user)
       flash[:danger] = 'invalid operation'
       redirect_to root_path
     end
