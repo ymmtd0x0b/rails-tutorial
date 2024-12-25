@@ -66,4 +66,19 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     assert flash.key?(:danger)
     assert_redirected_to root_path
   end
+
+  test 'successful edit with friendly forwarding' do
+    get edit_user_path(@user)
+    log_in_as(@user)
+    assert_redirected_to edit_user_path(@user)
+    patch user_path(@user), params: { user: { name: 'Foo Bar',
+                                              email: 'foo@bar.com',
+                                              password:              '',
+                                              password_confirmation: '' } }
+    assert flash.key?(:success)
+    assert_redirected_to @user
+    @user.reload
+    assert_equal 'Foo Bar', @user.name
+    assert_equal 'foo@bar.com', @user.email
+  end
 end
