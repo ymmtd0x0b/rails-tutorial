@@ -87,6 +87,8 @@ GEM
     date (3.4.1)
     erubi (1.13.0)
     execjs (2.10.0)
+    faker (2.20.0)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.0)
     formatador (1.1.0)
     globalid (1.1.0)
@@ -281,6 +283,7 @@ DEPENDENCIES
   bootstrap-sass (= 3.4.1)
   byebug (= 11.0.1)
   capybara (= 3.28.0)
+  faker (= 2.20.0)
   guard (= 2.16.2)
   guard-minitest (= 2.4.6)
   html2slim
