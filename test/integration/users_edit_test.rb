@@ -6,6 +6,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'unsuccessful edit' do
+    log_in_as(@user)
+
     get edit_user_path(@user)
     assert_template 'users/edit'
 
@@ -18,6 +20,8 @@ class UsersEditTest < ActionDispatch::IntegrationTest
   end
 
   test 'successful edit' do
+    log_in_as(@user)
+
     get edit_user_path(@user)
     assert_template 'users/edit'
 
@@ -30,5 +34,18 @@ class UsersEditTest < ActionDispatch::IntegrationTest
     @user.reload
     assert_equal 'Foo Bar', @user.name
     assert_equal 'foo@bar.com', @user.email
+  end
+
+  test 'should redirect edit when not logged in' do
+    get edit_user_path(@user)
+    assert flash.key?(:danger)
+    assert_redirected_to login_path
+  end
+
+  test 'should redirect update when not logged in' do
+    patch user_path(@user), params: { user: { name: 'not_logged_in',
+                                              email: 'miss_update@example.com' } }
+    assert flash.key?(:danger)
+    assert_redirected_to login_path
   end
 end
