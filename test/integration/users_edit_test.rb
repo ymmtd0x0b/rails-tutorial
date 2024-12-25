@@ -3,6 +3,7 @@ require 'test_helper'
 class UsersEditTest < ActionDispatch::IntegrationTest
   def setup
     @user = users(:michael)
+    @other_user = users(:archer)
   end
 
   test 'unsuccessful edit' do
@@ -47,5 +48,22 @@ class UsersEditTest < ActionDispatch::IntegrationTest
                                               email: 'miss_update@example.com' } }
     assert flash.key?(:danger)
     assert_redirected_to login_path
+  end
+
+  test 'should redirect edit when logged in as wrong user' do
+    log_in_as(@other_user)
+    get edit_user_path(@user)
+
+    assert flash.key?(:danger)
+    assert_redirected_to root_path
+  end
+
+  test 'should redirect update when logged in as wrong user' do
+    log_in_as(@other_user)
+    patch user_path(@user), params: { user: { name: 'not_logged_in',
+                                              email: 'miss_update@example.com' } }
+
+    assert flash.key?(:danger)
+    assert_redirected_to root_path
   end
 end

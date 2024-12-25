@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :logged_in_user, only: %i[edit update]
+  before_action :correct_user, only: %i[edit update]
 
   def show
     @user = User.find(params[:id])
@@ -44,6 +45,14 @@ class UsersController < ApplicationController
     unless logged_in?
       flash[:danger] = 'Please log in.'
       redirect_to login_path
+    end
+  end
+
+  def correct_user
+    user = User.find(params[:id])
+    if user != current_user
+      flash[:danger] = 'invalid operation'
+      redirect_to root_path
     end
   end
 end
