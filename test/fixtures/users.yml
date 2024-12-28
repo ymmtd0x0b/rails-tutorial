@@ -36,3 +36,10 @@ user_<%= n %>:
   activated: true
   activated_at: <%= Time.zone.now %>
 <% end %>
+
+non_activation_user:
+  name: Non Activation User
+  email: non_activation_user@example.com
+  password_digest: <%= User.digest('password') %>
+  activated: false
+  password_digest: nil
