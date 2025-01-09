@@ -1,20 +1,4 @@
 - if logged_in?
-  .row
-    aside.col-md-4
-      section.user_info
-        = render 'shared/user_info'
-      section.micropost_form
-        = render 'shared/micropost_form'
+  = render 'user_info'
 - else
-  .center.jumbotron
-    h1 Welcome to the Sample App
-
-    h2
-      |> This is the home page for the
-      a>[href="https://railstutorial.jp/"] Ruby on Rails Tutorial
-      | sample application.
-
-    = link_to 'Sign up now!', signup_path, class: 'btn btn-lg btn-primary'
-
-  = link_to 'https://rubyonrails.org/' do
-    = image_tag('rails.svg', alt: 'Rails logo', width: "200px")
+  = render 'welcome'
