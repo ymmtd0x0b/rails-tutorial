@@ -9,6 +9,7 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     log_in_as(@user)
     get root_path
     assert_select 'div.pagination'
+    assert_select 'input[type=file]'
 
     # 無効な送信
     assert_no_difference 'Micropost.count' do
@@ -19,8 +20,10 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
 
     # 有効な送信
     assert_difference 'Micropost.count', 1 do
-      post microposts_path, params: { micropost: { content: 'valid post' } }
+      post microposts_path, params: { micropost: { content: 'valid post',
+                                                   image: fixture_file_upload('test/fixtures/kitten.jpg', 'image/jpeg') } }
     end
+    assert @user.microposts.find_by(content: 'valid post').image.attached?
     assert_redirected_to root_path
     follow_redirect!
     assert_match 'valid post', response.body
