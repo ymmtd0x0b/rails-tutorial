@@ -17,5 +17,8 @@ module SampleApp
     # the framework and any gems in your application.
 
     config.generators.template_engine = :slim
+
+    # JavaScript の有効化(認証トークンをremoteフォームに埋め込む)
+    config.action_view.embed_authenticity_token_in_remote_forms = true
   end
 end
